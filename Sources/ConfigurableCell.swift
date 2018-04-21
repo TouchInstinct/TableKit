@@ -33,6 +33,14 @@ public protocol ConfigurableCell {
 
 }
 
+public extension ConfigurableCell {
+    
+    func height(for _: T) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+}
+
 public extension ConfigurableCell where Self: UITableViewCell {
     
     static var reuseIdentifier: String {
