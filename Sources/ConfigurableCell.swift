@@ -29,6 +29,8 @@ public protocol ConfigurableCell {
     static var defaultHeight: CGFloat? { get }
 
     func configure(with _: T)
+    func height(for _: T) -> CGFloat
+
 }
 
 public extension ConfigurableCell where Self: UITableViewCell {
