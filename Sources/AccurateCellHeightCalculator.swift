@@ -1,6 +1,6 @@
 import UIKit
 
-class AccurateCellHeightCalculator: RowHeightCalculator {
+public class AccurateCellHeightCalculator: RowHeightCalculator {
 
     private(set) weak var tableView: UITableView?
     private var prototypes = [String: UITableViewCell]()
