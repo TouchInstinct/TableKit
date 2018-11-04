@@ -22,12 +22,12 @@ import UIKit
 
 open class TableRowActionOptions<CellType: ConfigurableCell> where CellType: UITableViewCell {
 
-    open let item: CellType.T
-    open let cell: CellType?
-    open let indexPath: IndexPath
-    open let userInfo: [AnyHashable: Any]?
+    public let item: CellType.CellData
+    public let cell: CellType?
+    public let indexPath: IndexPath
+    public let userInfo: [AnyHashable: Any]?
 
-    init(item: CellType.T, cell: CellType?, path: IndexPath, userInfo: [AnyHashable: Any]?) {
+    init(item: CellType.CellData, cell: CellType?, path: IndexPath, userInfo: [AnyHashable: Any]?) {
 
         self.item = item
         self.cell = cell
@@ -55,7 +55,7 @@ private enum TableRowActionHandler<CellType: ConfigurableCell> where CellType: U
 open class TableRowAction<CellType: ConfigurableCell> where CellType: UITableViewCell {
 
     open var id: String?
-    open let type: TableRowActionType
+    public let type: TableRowActionType
     private let handler: TableRowActionHandler<CellType>
     
     public init(_ type: TableRowActionType, handler: @escaping (_ options: TableRowActionOptions<CellType>) -> Void) {
@@ -76,7 +76,7 @@ open class TableRowAction<CellType: ConfigurableCell> where CellType: UITableVie
         self.handler = .action(handler)
     }
 
-    public func invokeActionOn(cell: UITableViewCell?, item: CellType.T, path: IndexPath, userInfo: [AnyHashable: Any]?) -> Any? {
+    public func invokeActionOn(cell: UITableViewCell?, item: CellType.CellData, path: IndexPath, userInfo: [AnyHashable: Any]?) -> Any? {
 
         return handler.invoke(withOptions: TableRowActionOptions(item: item, cell: cell as? CellType, path: path, userInfo: userInfo))
     }

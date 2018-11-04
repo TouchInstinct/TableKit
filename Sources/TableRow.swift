@@ -22,7 +22,7 @@ import UIKit
 
 open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableViewCell {
     
-    open let item: CellType.T
+    public let item: CellType.CellData
     private lazy var actions = [String: [TableRowAction<CellType>]]()
     private(set) open var editingActions: [UITableViewRowAction]?
     
@@ -46,7 +46,7 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         return CellType.self
     }
     
-    public init(item: CellType.T, actions: [TableRowAction<CellType>]? = nil, editingActions: [UITableViewRowAction]? = nil) {
+    public init(item: CellType.CellData, actions: [TableRowAction<CellType>]? = nil, editingActions: [UITableViewRowAction]? = nil) {
         
         self.item = item
         self.editingActions = editingActions
@@ -69,7 +69,7 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
     
     open func invoke(action: TableRowActionType, cell: UITableViewCell?, path: IndexPath, userInfo: [AnyHashable: Any]? = nil) -> Any? {
 
-        return actions[action.key]?.flatMap({ $0.invokeActionOn(cell: cell, item: item, path: path, userInfo: userInfo) }).last
+        return actions[action.key]?.compactMap({ $0.invokeActionOn(cell: cell, item: item, path: path, userInfo: userInfo) }).last
     }
     
     open func has(action: TableRowActionType) -> Bool {
