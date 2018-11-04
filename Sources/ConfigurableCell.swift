@@ -35,7 +35,7 @@ public protocol ConfigurableCell {
 
 public extension ConfigurableCell {
     
-    func height(for _: T) -> CGFloat {
+    func height(for _: CellData) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
