@@ -22,13 +22,23 @@ import UIKit
 
 public protocol ConfigurableCell {
 
-    associatedtype T
+    associatedtype CellData
 
     static var reuseIdentifier: String { get }
     static var estimatedHeight: CGFloat? { get }
     static var defaultHeight: CGFloat? { get }
 
-    func configure(with _: T)
+    func configure(with _: CellData)
+    func height(for _: CellData) -> CGFloat
+
+}
+
+public extension ConfigurableCell {
+    
+    func height(for _: CellData) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
 }
 
 public extension ConfigurableCell where Self: UITableViewCell {

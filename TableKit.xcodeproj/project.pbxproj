@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		320C5280218EB9A7004EAD1C /* AccurateCellHeightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320C527F218EB9A7004EAD1C /* AccurateCellHeightCalculator.swift */; };
 		50CF6E6B1D6704FE004746FF /* TableCellRegisterer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CF6E6A1D6704FE004746FF /* TableCellRegisterer.swift */; };
 		50E858581DB153F500A9AA55 /* TableKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E858571DB153F500A9AA55 /* TableKit.swift */; };
 		DA9EA7AF1D0EC2C90021F650 /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9EA7A61D0EC2C90021F650 /* ConfigurableCell.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		320C527F218EB9A7004EAD1C /* AccurateCellHeightCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccurateCellHeightCalculator.swift; sourceTree = "<group>"; };
 		50CF6E6A1D6704FE004746FF /* TableCellRegisterer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCellRegisterer.swift; sourceTree = "<group>"; };
 		50E858571DB153F500A9AA55 /* TableKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableKit.swift; sourceTree = "<group>"; };
 		DA9EA7561D0B679A0021F650 /* TableKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TableKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +102,7 @@
 				DA9EA7A71D0EC2C90021F650 /* TablePrototypeCellHeightCalculator.swift */,
 				DA9EA7A61D0EC2C90021F650 /* ConfigurableCell.swift */,
 				DA9EA7A81D0EC2C90021F650 /* Operators.swift */,
+				320C527F218EB9A7004EAD1C /* AccurateCellHeightCalculator.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -177,16 +180,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Max Sokolov";
 				TargetAttributes = {
 					DA9EA7551D0B679A0021F650 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1000;
 					};
 					DA9EA7C31D0EC45F0021F650 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -233,6 +236,7 @@
 				50CF6E6B1D6704FE004746FF /* TableCellRegisterer.swift in Sources */,
 				DA9EA7AF1D0EC2C90021F650 /* ConfigurableCell.swift in Sources */,
 				DA9EA7B31D0EC2C90021F650 /* TableDirector.swift in Sources */,
+				320C5280218EB9A7004EAD1C /* AccurateCellHeightCalculator.swift in Sources */,
 				DA9EA7B71D0EC2C90021F650 /* TableSection.swift in Sources */,
 				DA9EA7B01D0EC2C90021F650 /* TablePrototypeCellHeightCalculator.swift in Sources */,
 				DA9EA7B51D0EC2C90021F650 /* TableRowAction.swift in Sources */,
@@ -275,12 +279,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -333,12 +339,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -389,7 +397,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -409,7 +417,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tablekit.TableKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -421,7 +429,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tablekit.TableKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -433,7 +441,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tablekit.TableKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
