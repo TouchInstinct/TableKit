@@ -39,7 +39,7 @@ public final class ExpandableCellHeightCalculator: RowHeightCalculator {
         row.configure(cell)
         cell.layoutIfNeeded()
 
-        let height = cell.height
+        let height = cell.height(layoutType: row.layoutType)
         cachedHeights[indexPath] = height
         return height
     }

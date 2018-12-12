@@ -20,8 +20,13 @@ extension UITableViewCell {
         return indexPath
     }
 
-    public var height: CGFloat {
-        return contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+    public func height(layoutType: LayoutType) -> CGFloat {
+        switch layoutType {
+        case .auto:
+            return contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        case .manual:
+            return contentView.subviews.map { $0.frame.maxY }.max() ?? 0
+        }
     }
 
 }

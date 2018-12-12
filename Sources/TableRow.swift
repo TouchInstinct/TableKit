@@ -41,6 +41,10 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
     open var defaultHeight: CGFloat? {
         return CellType.defaultHeight
     }
+
+    open var layoutType: LayoutType {
+        return CellType.layoutType
+    }
     
     open var cellType: AnyClass {
         return CellType.self

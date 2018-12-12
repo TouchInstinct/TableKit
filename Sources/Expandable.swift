@@ -47,7 +47,7 @@ extension Expandable where Self: UITableViewCell & ConfigurableCell {
         if let indexPath = indexPath,
            let tableDirector = (tableView?.delegate as? TableDirector),
            let cellHeightCalculator = tableDirector.rowHeightCalculator as? ExpandableCellHeightCalculator {
-            cellHeightCalculator.updateCached(height: height, for: indexPath)
+            cellHeightCalculator.updateCached(height: height(layoutType: Self.layoutType), for: indexPath)
         }
     }
 
