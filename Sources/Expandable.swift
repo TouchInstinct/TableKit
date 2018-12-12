@@ -12,6 +12,23 @@ public protocol Expandable {
 
 extension Expandable where Self: UITableViewCell & ConfigurableCell {
 
+    public func initState() {
+        guard let viewModel = viewModel else {
+            return
+        }
+
+        changeState(isCollapsed: viewModel.isCollapsed)
+    }
+
+    private func changeState(isCollapsed: Bool) {
+        // layout to get right frames, frame of bottom subview can be used to get expanded height
+        layoutIfNeeded()
+
+        // apply changes
+        configureAppearance(isCollapsed: isCollapsed)
+        layoutIfNeeded()
+    }
+
     public func toggleState(animated: Bool = true,
                             animationDuration: TimeInterval = 0.3) {
 
@@ -41,8 +58,7 @@ extension Expandable where Self: UITableViewCell & ConfigurableCell {
     }
 
     private func applyChanges(isCollapsed: Bool) {
-        configureAppearance(isCollapsed: isCollapsed)
-        layoutIfNeeded()
+        changeState(isCollapsed: isCollapsed)
 
         if let indexPath = indexPath,
            let tableDirector = (tableView?.delegate as? TableDirector),
