@@ -2,7 +2,7 @@ import UIKit
 
 public final class ExpandableCellHeightCalculator: RowHeightCalculator {
 
-    private(set) weak var tableView: UITableView?
+    private weak var tableView: UITableView?
 
     private var prototypes = [String: UITableViewCell]()
 

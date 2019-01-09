@@ -2,7 +2,7 @@ import UIKit
 
 extension UITableViewCell {
 
-    public var tableView: UITableView? {
+    var tableView: UITableView? {
         var view = superview
 
         while view != nil && !(view is UITableView) {
@@ -12,7 +12,7 @@ extension UITableViewCell {
         return view as? UITableView
     }
 
-    public var indexPath: IndexPath? {
+    var indexPath: IndexPath? {
         guard let indexPath = tableView?.indexPath(for: self) else {
             return nil
         }
