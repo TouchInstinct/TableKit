@@ -26,7 +26,6 @@ public protocol ConfigurableCell {
 
     static var reuseIdentifier: String { get }
 
-    @available(*, deprecated, message: "For static cells use defaultHeight, height of self-sized cells will be calculated automatically")
     static var estimatedHeight: CGFloat? { get }
 
     static var defaultHeight: CGFloat? { get }
