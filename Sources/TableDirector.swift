@@ -172,6 +172,10 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard !sections.isEmpty else {
+            return 0
+        }
+        
         return sections[section].numberOfRows
     }
     
@@ -196,29 +200,51 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: UITableViewDataSource - section setup
     open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard !sections.isEmpty else {
+            return nil
+        }
+        
         return sections[section].headerTitle
     }
     
     open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        guard !sections.isEmpty else {
+            return nil
+        }
+        
         return sections[section].footerTitle
     }
     
     // MARK: UITableViewDelegate - section setup
     open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard !sections.isEmpty else {
+            return nil
+        }
+        
         return sections[section].headerView
     }
     
     open func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard !sections.isEmpty else {
+            return nil
+        }
+        
         return sections[section].footerView
     }
     
     open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard !sections.isEmpty else {
+            return UITableView.automaticDimension
+        }
         
         let section = sections[section]
         return section.headerHeight ?? section.headerView?.frame.size.height ?? UITableView.automaticDimension
     }
     
     open func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard !sections.isEmpty else {
+            return UITableView.automaticDimension
+        }
         
         let section = sections[section]
         return section.footerHeight
