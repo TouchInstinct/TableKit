@@ -34,16 +34,7 @@ public protocol ConfigurableCell {
     static var layoutType: LayoutType { get }
 
     func configure(with _: CellData)
-    func height(for _: CellData) -> CGFloat
 
-}
-
-public extension ConfigurableCell {
-    
-    func height(for _: CellData) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
 }
 
 public extension ConfigurableCell where Self: UITableViewCell {

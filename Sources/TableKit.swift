@@ -32,7 +32,6 @@ public struct TableKitUserInfoKeys {
 public protocol RowConfigurable {
     
     func configure(_ cell: UITableViewCell)
-    func height(for _: UITableViewCell) -> CGFloat
 
 }
 
