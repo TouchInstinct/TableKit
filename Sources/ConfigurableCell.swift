@@ -25,20 +25,15 @@ public protocol ConfigurableCell {
     associatedtype CellData
 
     static var reuseIdentifier: String { get }
+
     static var estimatedHeight: CGFloat? { get }
+
     static var defaultHeight: CGFloat? { get }
 
+    static var layoutType: LayoutType { get }
+
     func configure(with _: CellData)
-    func height(for _: CellData) -> CGFloat
 
-}
-
-public extension ConfigurableCell {
-    
-    func height(for _: CellData) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
 }
 
 public extension ConfigurableCell where Self: UITableViewCell {
@@ -54,4 +49,9 @@ public extension ConfigurableCell where Self: UITableViewCell {
     static var defaultHeight: CGFloat? {
         return nil
     }
+
+    static var layoutType: LayoutType {
+        return .auto
+    }
+    
 }
