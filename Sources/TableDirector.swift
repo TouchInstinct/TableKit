@@ -60,7 +60,7 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
             self.cellRegisterer = TableCellRegisterer(tableView: tableView)
         }
         
-        self.rowHeightCalculator = cellHeightCalculator ?? ExpandableCellHeightCalculator(tableView: tableView)
+        self.rowHeightCalculator = cellHeightCalculator
         self.scrollDelegate = scrollDelegate
         self.tableView = tableView
         self.tableView?.delegate = self
