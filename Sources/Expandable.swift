@@ -58,9 +58,9 @@ extension Expandable where Self: UITableViewCell & ConfigurableCell {
                            animationDuration: TimeInterval = .defaultExpandableAnimationDuration) {
         
         guard let tableView = tableView,
-            let viewModel = viewModel,
+              let viewModel = viewModel,
             viewModel.expandableState != state else {
-                return
+            return
         }
         
         let contentOffset = tableView.contentOffset
@@ -68,9 +68,9 @@ extension Expandable where Self: UITableViewCell & ConfigurableCell {
         if animated {
             UIView.animate(withDuration: animationDuration,
                            animations: { [weak self] in
-                            self?.applyChanges(expandableState: state)
-                }, completion: { _ in
-                    viewModel.expandableState = state
+                self?.applyChanges(expandableState: state)
+            }, completion: { _ in
+                viewModel.expandableState = state
             })
         } else {
             applyChanges(expandableState: state)
@@ -87,8 +87,8 @@ extension Expandable where Self: UITableViewCell & ConfigurableCell {
         changeState(expandableState: expandableState)
         
         if let indexPath = indexPath,
-            let tableDirector = (tableView?.delegate as? TableDirector),
-            let cellHeightCalculator = tableDirector.rowHeightCalculator as? ExpandableCellHeightCalculator {
+           let tableDirector = (tableView?.delegate as? TableDirector),
+           let cellHeightCalculator = tableDirector.rowHeightCalculator as? ExpandableCellHeightCalculator {
             cellHeightCalculator.updateCached(height: expandableState.height ?? height(layoutType: Self.layoutType), for: indexPath)
         }
     }
