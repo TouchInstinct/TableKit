@@ -355,13 +355,23 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
     @available(iOS 11, *)
     open func tableView(_ tableView: UITableView,
                         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return .init(actions: sections[indexPath.section].rows[indexPath.row].leadingContextualActions)
+        let currentRow = sections[indexPath.section].rows[indexPath.row]
+        let configuration = UISwipeActionsConfiguration(actions: currentRow.leadingContextualActions)
+        
+        configuration.performsFirstActionWithFullSwipe = currentRow.performsFirstActionWithFullSwipe
+        
+        return configuration
     }
     
     @available(iOS 11, *)
     open func tableView(_ tableView: UITableView,
                         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return .init(actions: sections[indexPath.section].rows[indexPath.row].trailingContextualActions)
+        let currentRow = sections[indexPath.section].rows[indexPath.row]
+        let configuration = UISwipeActionsConfiguration(actions: currentRow.trailingContextualActions)
+        
+        configuration.performsFirstActionWithFullSwipe = currentRow.performsFirstActionWithFullSwipe
+        
+        return configuration
     }
     
     open func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

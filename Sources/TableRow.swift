@@ -38,6 +38,11 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         []
     }
     
+    @available(iOS 11, *)
+    open var performsFirstActionWithFullSwipe: Bool {
+        false
+    }
+    
     open var hashValue: Int {
         return ObjectIdentifier(self).hashValue
     }

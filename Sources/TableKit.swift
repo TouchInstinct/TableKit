@@ -44,6 +44,9 @@ public protocol RowActionable {
     @available(iOS 11, *)
     var trailingContextualActions: [UIContextualAction] { get }
     
+    @available(iOS 11, *)
+    var performsFirstActionWithFullSwipe: Bool { get }
+    
     @available(iOS, obsoleted: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
     var editingActions: [UITableViewRowAction]? { get }
 
