@@ -25,15 +25,16 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
     public let item: CellType.CellData
     private lazy var actions = [String: [TableRowAction<CellType>]]()
     
+    @available(iOS, obsoleted: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
     open private(set) var editingActions: [UITableViewRowAction]?
     
     @available(iOS 11, *)
-    public var leadingContextualActions: [UIContextualAction] {
+    open var leadingContextualActions: [UIContextualAction] {
         []
     }
     
     @available(iOS 11, *)
-    public var trailingContextualActions: [UIContextualAction] {
+    open var trailingContextualActions: [UIContextualAction] {
         []
     }
     
