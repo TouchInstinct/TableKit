@@ -309,13 +309,69 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         return indexPath
     }
 
+    open func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        if hasAction(.willDeselect, atIndexPath: indexPath) {
+            return invoke(action: .willDeselect, cell: tableView.cellForRow(at: indexPath), indexPath: indexPath) as? IndexPath
+        }
+
+        return indexPath
+    }
+
+    @available(iOS 13.0, *)
+    open func tableView(
+        _ tableView: UITableView,
+        shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool
+    {
+        invoke(action: .shouldBeginMultipleSelection, cell: tableView.cellForRow(at: indexPath), indexPath: indexPath) as? Bool ?? false
+    }
+
+    @available(iOS 13.0, *)
+    open func tableView(
+        _ tableView: UITableView,
+        didBeginMultipleSelectionInteractionAt indexPath: IndexPath)
+    {
+        invoke(action: .didBeginMultipleSelection, cell: tableView.cellForRow(at: indexPath), indexPath: indexPath)
+    }
+    
+    @available(iOS 13.0, *)
+    open func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint) -> UIContextMenuConfiguration?
+    {
+        invoke(action: .showContextMenu, cell: tableView.cellForRow(at: indexPath), indexPath: indexPath, userInfo: [TableKitUserInfoKeys.ContextMenuInvokePoint: point]) as? UIContextMenuConfiguration
+    }
+
     // MARK: - Row editing
     open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return sections[indexPath.section].rows[indexPath.row].isEditingAllowed(forIndexPath: indexPath)
     }
     
+    @available(iOS, deprecated: 11, message: "Use leadingSwipeActionsConfigurationForRowAt(:_) and trailingSwipeActionsConfigurationForRowAt(:_) instead")
     open func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         return sections[indexPath.section].rows[indexPath.row].editingActions
+    }
+    
+    @available(iOS 11, *)
+    open func tableView(_ tableView: UITableView,
+                        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let currentRow = sections[indexPath.section].rows[indexPath.row]
+        let configuration = UISwipeActionsConfiguration(actions: currentRow.leadingContextualActions)
+        
+        configuration.performsFirstActionWithFullSwipe = currentRow.performsFirstActionWithFullSwipe
+        
+        return configuration
+    }
+    
+    @available(iOS 11, *)
+    open func tableView(_ tableView: UITableView,
+                        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let currentRow = sections[indexPath.section].rows[indexPath.row]
+        let configuration = UISwipeActionsConfiguration(actions: currentRow.trailingContextualActions)
+        
+        configuration.performsFirstActionWithFullSwipe = currentRow.performsFirstActionWithFullSwipe
+        
+        return configuration
     }
     
     open func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -346,6 +402,11 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     open func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         invoke(action: .move, cell: tableView.cellForRow(at: sourceIndexPath), indexPath: sourceIndexPath, userInfo: [TableKitUserInfoKeys.CellMoveDestinationIndexPath: destinationIndexPath])
+    }
+  
+    open func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+      let cell = tableView.cellForRow(at: indexPath)
+      invoke(action: .accessoryButtonTap, cell: cell, indexPath: indexPath)
     }
 }
 

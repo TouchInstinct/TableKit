@@ -40,7 +40,7 @@ extension Expandable where Self: UITableViewCell & ConfigurableCell {
                             animationDuration: TimeInterval = .defaultExpandableAnimationDuration) {
         
         guard let viewModel = viewModel,
-              let stateIndex = viewModel.availableStates.index(where: { $0 == viewModel.expandableState }) else {
+              let stateIndex = viewModel.availableStates.firstIndex(where: { $0 == viewModel.expandableState }) else {
             return
         }
         

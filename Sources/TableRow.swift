@@ -21,10 +21,27 @@
 import UIKit
 
 open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableViewCell {
-    
+
     public let item: CellType.CellData
     private lazy var actions = [String: [TableRowAction<CellType>]]()
-    private(set) open var editingActions: [UITableViewRowAction]?
+    
+    @available(iOS, deprecated: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
+    open private(set) var editingActions: [UITableViewRowAction]?
+    
+    @available(iOS 11, *)
+    open var leadingContextualActions: [UIContextualAction] {
+        []
+    }
+    
+    @available(iOS 11, *)
+    open var trailingContextualActions: [UIContextualAction] {
+        []
+    }
+    
+    @available(iOS 11, *)
+    open var performsFirstActionWithFullSwipe: Bool {
+        false
+    }
     
     open var hashValue: Int {
         return ObjectIdentifier(self).hashValue
@@ -50,10 +67,23 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         return CellType.self
     }
     
-    public init(item: CellType.CellData, actions: [TableRowAction<CellType>]? = nil, editingActions: [UITableViewRowAction]? = nil) {
+    @available(iOS, deprecated: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
+    public init(item: CellType.CellData,
+                actions: [TableRowAction<CellType>]? = nil,
+                editingActions: [UITableViewRowAction]? = nil) {
         
         self.item = item
         self.editingActions = editingActions
+        
+        actions?.forEach { on($0) }
+    }
+    
+    @available(iOS 11, *)
+    public init(item: CellType.CellData,
+                actions: [TableRowAction<CellType>]? = nil) {
+        
+        self.item = item
+        
         actions?.forEach { on($0) }
     }
     
@@ -81,7 +111,14 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         if actions[TableRowActionType.canEdit.key] != nil {
             return invoke(action: .canEdit, cell: nil, path: indexPath) as? Bool ?? false
         }
-        return editingActions?.isEmpty == false || actions[TableRowActionType.clickDelete.key] != nil
+        
+        if #available(iOS 11, *) {
+            return !leadingContextualActions.isEmpty
+                || !trailingContextualActions.isEmpty
+                || actions[TableRowActionType.clickDelete.key] != nil
+        } else {
+            return editingActions?.isEmpty == false || actions[TableRowActionType.clickDelete.key] != nil
+        }
     }
     
     // MARK: - actions -
@@ -117,7 +154,7 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
     open func removeAction(forActionId actionId: String) {
 
         for (key, value) in actions {
-            if let actionIndex = value.index(where: { $0.id == actionId }) {
+            if let actionIndex = value.firstIndex(where: { $0.id == actionId }) {
                 actions[key]?.remove(at: actionIndex)
             }
         }
