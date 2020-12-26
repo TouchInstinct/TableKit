@@ -38,7 +38,9 @@ public protocol RowConfigurable {
 
 public protocol RowActionable {
     
-    var editingActions: [UITableViewRowAction]? { get }
+    var leadingContextualActions: [UIContextualAction] { get }
+    var trailingContextualActions: [UIContextualAction] { get }
+    
     func isEditingAllowed(forIndexPath indexPath: IndexPath) -> Bool
 
     func invoke(

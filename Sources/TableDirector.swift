@@ -348,7 +348,17 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     open func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        return sections[indexPath.section].rows[indexPath.row].editingActions
+        return nil
+    }
+    
+    open func tableView(_ tableView: UITableView,
+                        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return .init(actions: sections[indexPath.section].rows[indexPath.row].leadingContextualActions)
+    }
+    
+    open func tableView(_ tableView: UITableView,
+                        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return .init(actions: sections[indexPath.section].rows[indexPath.row].trailingContextualActions)
     }
     
     open func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

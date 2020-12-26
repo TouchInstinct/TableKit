@@ -24,7 +24,9 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
     
     public let item: CellType.CellData
     private lazy var actions = [String: [TableRowAction<CellType>]]()
-    private(set) open var editingActions: [UITableViewRowAction]?
+    
+    private(set) open var leadingContextualActions: [UIContextualAction] = []
+    private(set) open var trailingContextualActions: [UIContextualAction] = []
     
     open var hashValue: Int {
         return ObjectIdentifier(self).hashValue
@@ -50,10 +52,15 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         return CellType.self
     }
     
-    public init(item: CellType.CellData, actions: [TableRowAction<CellType>]? = nil, editingActions: [UITableViewRowAction]? = nil) {
+    public init(item: CellType.CellData,
+                actions: [TableRowAction<CellType>]? = nil,
+                leadingContextualActions: [UIContextualAction] = [],
+                trailingContextualActions: [UIContextualAction] = []) {
         
         self.item = item
-        self.editingActions = editingActions
+        self.leadingContextualActions = leadingContextualActions
+        self.trailingContextualActions = trailingContextualActions
+        
         actions?.forEach { on($0) }
     }
     
@@ -81,7 +88,10 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         if actions[TableRowActionType.canEdit.key] != nil {
             return invoke(action: .canEdit, cell: nil, path: indexPath) as? Bool ?? false
         }
-        return editingActions?.isEmpty == false || actions[TableRowActionType.clickDelete.key] != nil
+
+        return !leadingContextualActions.isEmpty
+            || !trailingContextualActions.isEmpty
+            || actions[TableRowActionType.clickDelete.key] != nil
     }
     
     // MARK: - actions -
