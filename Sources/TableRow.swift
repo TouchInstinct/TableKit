@@ -25,7 +25,7 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
     public let item: CellType.CellData
     private lazy var actions = [String: [TableRowAction<CellType>]]()
     
-    @available(iOS, obsoleted: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
+    @available(iOS, deprecated: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
     open private(set) var editingActions: [UITableViewRowAction]?
     
     @available(iOS 11, *)
@@ -67,7 +67,7 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         return CellType.self
     }
     
-    @available(iOS, obsoleted: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
+    @available(iOS, deprecated: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
     public init(item: CellType.CellData,
                 actions: [TableRowAction<CellType>]? = nil,
                 editingActions: [UITableViewRowAction]? = nil) {

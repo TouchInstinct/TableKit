@@ -347,7 +347,7 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         return sections[indexPath.section].rows[indexPath.row].isEditingAllowed(forIndexPath: indexPath)
     }
     
-    @available(iOS, obsoleted: 11, message: "Use leadingSwipeActionsConfigurationForRowAt(:_) and trailingSwipeActionsConfigurationForRowAt(:_) instead")
+    @available(iOS, deprecated: 11, message: "Use leadingSwipeActionsConfigurationForRowAt(:_) and trailingSwipeActionsConfigurationForRowAt(:_) instead")
     open func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         return sections[indexPath.section].rows[indexPath.row].editingActions
     }
