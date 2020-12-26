@@ -21,12 +21,21 @@
 import UIKit
 
 open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableViewCell {
-    
+
     public let item: CellType.CellData
     private lazy var actions = [String: [TableRowAction<CellType>]]()
     
-    private(set) open var leadingContextualActions: [UIContextualAction] = []
-    private(set) open var trailingContextualActions: [UIContextualAction] = []
+    open private(set) var editingActions: [UITableViewRowAction]?
+    
+    @available(iOS 11, *)
+    public var leadingContextualActions: [UIContextualAction] {
+        []
+    }
+    
+    @available(iOS 11, *)
+    public var trailingContextualActions: [UIContextualAction] {
+        []
+    }
     
     open var hashValue: Int {
         return ObjectIdentifier(self).hashValue
@@ -52,14 +61,22 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         return CellType.self
     }
     
+    @available(iOS, obsoleted: 11, message: "Use leadingContextualActions, trailingContextualActions instead")
     public init(item: CellType.CellData,
                 actions: [TableRowAction<CellType>]? = nil,
-                leadingContextualActions: [UIContextualAction] = [],
-                trailingContextualActions: [UIContextualAction] = []) {
+                editingActions: [UITableViewRowAction]? = nil) {
         
         self.item = item
-        self.leadingContextualActions = leadingContextualActions
-        self.trailingContextualActions = trailingContextualActions
+        self.editingActions = editingActions
+        
+        actions?.forEach { on($0) }
+    }
+    
+    @available(iOS 11, *)
+    public init(item: CellType.CellData,
+                actions: [TableRowAction<CellType>]? = nil) {
+        
+        self.item = item
         
         actions?.forEach { on($0) }
     }
@@ -88,10 +105,14 @@ open class TableRow<CellType: ConfigurableCell>: Row where CellType: UITableView
         if actions[TableRowActionType.canEdit.key] != nil {
             return invoke(action: .canEdit, cell: nil, path: indexPath) as? Bool ?? false
         }
-
-        return !leadingContextualActions.isEmpty
-            || !trailingContextualActions.isEmpty
-            || actions[TableRowActionType.clickDelete.key] != nil
+        
+        if #available(iOS 11, *) {
+            return !leadingContextualActions.isEmpty
+                || !trailingContextualActions.isEmpty
+                || actions[TableRowActionType.clickDelete.key] != nil
+        } else {
+            return editingActions?.isEmpty == false || actions[TableRowActionType.clickDelete.key] != nil
+        }
     }
     
     // MARK: - actions -
